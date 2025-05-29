@@ -1,6 +1,6 @@
 import turtle
 
-#Using turtle to draw board
+#Function using turtle to draw board
 def drawgrid(mypen):
   mypen.color("orange")
   mypen.begin_fill()
@@ -64,7 +64,7 @@ def drawgrid(mypen):
 
 
 #------------------------------------------------------------
-#Using turtle to write players and their symbols
+#FUnctiopn using turtle to write players and their symbols
 def drawletter(mypen):
   mypen.penup()
 
@@ -164,7 +164,7 @@ def drawsymbol(pos, sym):
     style = ("Arial", 85, "normal")
     mypen.write(sym, font=style, align="center")
 
-#To check who won
+#To check who won and to draw the line
 
 def Checkwin():
   if gameboard[0] == gameboard[1] == gameboard[2] != "_":
