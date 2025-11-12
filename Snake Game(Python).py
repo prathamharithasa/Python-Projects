@@ -7,7 +7,7 @@ pygame.init()
 # Screen
 width, height = 600, 400
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('🐍 Snake Game')
+pygame.display.set_caption('Snake Game!')
 
 # Colors
 white = (255, 255, 255)
@@ -16,6 +16,7 @@ red   = (200, 0, 0)
 green = (0, 200, 0)
 light_blue = (173, 216, 230)
 gray = (120, 120, 120)
+yellow = (255, 255, 0)
 
 # Game settings
 clock = pygame.time.Clock()
@@ -56,17 +57,19 @@ def draw_snake(snake_block, snake_list):
             pygame.draw.rect(screen, gray, [x[0], x[1], snake_block, snake_block], border_radius=4)
 
 # Message box
-def show_message(msg, size=24, color=black, y_offset=0):
-    text = pygame.font.SysFont('consolas', size, bold=True).render(msg, True, color)
+def show_message(msg, size=24, color=black, y_offset=0, bold=False, underline=False):
+    f = pygame.font.SysFont('consolas', size, bold=bold)
+    f.set_underline(underline)
+    text = f.render(msg, True, color)
     rect = text.get_rect(center=(width // 2, height // 2 + y_offset))
     screen.blit(text, rect)
 
 # Start screen (press SPACE to open difficulty selector)
 def start_screen():
     screen.fill(light_blue)
-    show_message("Welcome to Snake Game", 45, black, -40)
-    show_message("Press SPACE to Start", 30, black, 10)
-    show_message("Controls: Arrow Keys or W A S D", 20, gray, 50)
+    show_message("Welcome to The Snake Game!", 40, green, -40, bold=True, underline=True)
+    show_message("Press the SPACE button to Start", 28, black, 10, bold=True)
+    show_message("Controls: Arrow Keys or W, A, S, D", 23, gray, 50, bold=True)
     pygame.display.update()
 
     while True:
@@ -78,8 +81,10 @@ def start_screen():
                 if event.key == pygame.K_SPACE:
                     # Show difficulty options after SPACE
                     screen.fill(light_blue)
-                    show_message("Select Difficulty", 40, black, -60)
-                    show_message("1 - Easy (Slow)    2 - Medium (Normal)    3 - Hard (Fast)", 18, gray, 0)
+                    show_message("Select Difficulty", 40, black, -60, bold=True, underline=True)
+                    show_message("1 - Easy (Slow)", 20, green, -25, bold=True)
+                    show_message("2 - Medium (Normal)", 20, yellow, 0, bold=True)
+                    show_message("3 - Hard (Fast)", 20, red, 25, bold=True)
                     pygame.display.update()
 
                     while True:
@@ -123,10 +128,10 @@ def game_loop(snake_speed):
                 save_high_score(final_score)
                 high_score = load_high_score()
 
-                show_message("Game Over!", 36, red, -70)
-                show_message(f"Final Score: {final_score}", 28, black, -20)
-                show_message(f"High Score: {high_score}", 24, gray, 20)
-                show_message("Press C to Play Again or Q to Quit", 24, black, 60)
+                show_message("Game Over!", 40, red, -70, bold=True, underline=True)
+                show_message(f"Final Score: {final_score}", 28, black, -20, bold=True)
+                show_message(f"High Score: {high_score}", 24, gray, 20, bold=True)
+                show_message("Press C to Play Again or Q to Quit", 24, black, 60, bold=True)
                 pygame.display.update()
 
                 for event in pygame.event.get():
